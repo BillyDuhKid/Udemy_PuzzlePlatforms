@@ -7,9 +7,11 @@
 /IGNORE:4221
 /NODEFAULTLIB
 "D:\Unreal Projects\Udemy_PuzzlePlatforms\PuzzlePlatforms\Intermediate\Build\Win64\PuzzlePlatformsEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"D:\Unreal Projects\Udemy_PuzzlePlatforms\PuzzlePlatforms\Intermediate\Build\Win64\UE4Editor\Development\PuzzlePlatforms\MovingPlatform.cpp.obj"
 "D:\Unreal Projects\Udemy_PuzzlePlatforms\PuzzlePlatforms\Intermediate\Build\Win64\UE4Editor\Development\PuzzlePlatforms\PuzzlePlatforms.cpp.obj"
 "D:\Unreal Projects\Udemy_PuzzlePlatforms\PuzzlePlatforms\Intermediate\Build\Win64\UE4Editor\Development\PuzzlePlatforms\PuzzlePlatformsCharacter.cpp.obj"
 "D:\Unreal Projects\Udemy_PuzzlePlatforms\PuzzlePlatforms\Intermediate\Build\Win64\UE4Editor\Development\PuzzlePlatforms\PuzzlePlatformsGameMode.cpp.obj"
+"D:\Unreal Projects\Udemy_PuzzlePlatforms\PuzzlePlatforms\Intermediate\Build\Win64\UE4Editor\Development\PuzzlePlatforms\MovingPlatform.gen.cpp.obj"
 "D:\Unreal Projects\Udemy_PuzzlePlatforms\PuzzlePlatforms\Intermediate\Build\Win64\UE4Editor\Development\PuzzlePlatforms\PuzzlePlatforms.init.gen.cpp.obj"
 "D:\Unreal Projects\Udemy_PuzzlePlatforms\PuzzlePlatforms\Intermediate\Build\Win64\UE4Editor\Development\PuzzlePlatforms\PuzzlePlatformsCharacter.gen.cpp.obj"
 "D:\Unreal Projects\Udemy_PuzzlePlatforms\PuzzlePlatforms\Intermediate\Build\Win64\UE4Editor\Development\PuzzlePlatforms\PuzzlePlatformsGameMode.gen.cpp.obj"

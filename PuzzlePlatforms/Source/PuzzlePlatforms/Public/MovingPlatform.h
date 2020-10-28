@@ -21,6 +21,15 @@ public:
 	virtual void Tick(float DeltaSeconds) override;
 
 	UPROPERTY(EditAnywhere)
-	float SpeedCentimetersPerSecond = 20;
+	float SpeedCentimetersPerSecond = 100;
+
+	UPROPERTY(EditAnywhere, Meta = (MakeEditWidget = true))
+	FVector TargetLocation;
+
+private:
+	float JourneyLength;
+	FVector GlobalStartingLocation;
+	FVector GlobalTargetLocation;
+	FVector Direction;
 	
 };

@@ -17,6 +17,7 @@ void EmptyLinkFunctionForGeneratedCodeMovingPlatform() {}
 	PUZZLEPLATFORMS_API UClass* Z_Construct_UClass_AMovingPlatform();
 	ENGINE_API UClass* Z_Construct_UClass_AStaticMeshActor();
 	UPackage* Z_Construct_UPackage__Script_PuzzlePlatforms();
+	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 // End Cross Module References
 	void AMovingPlatform::StaticRegisterNativesAMovingPlatform()
 	{
@@ -31,6 +32,10 @@ void EmptyLinkFunctionForGeneratedCodeMovingPlatform() {}
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_TargetLocation_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FStructPropertyParams NewProp_TargetLocation;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_SpeedCentimetersPerSecond_MetaData[];
 #endif
@@ -53,6 +58,14 @@ void EmptyLinkFunctionForGeneratedCodeMovingPlatform() {}
 	};
 #endif
 #if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMovingPlatform_Statics::NewProp_TargetLocation_MetaData[] = {
+		{ "Category", "MovingPlatform" },
+		{ "MakeEditWidget", "TRUE" },
+		{ "ModuleRelativePath", "Public/MovingPlatform.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UClass_AMovingPlatform_Statics::NewProp_TargetLocation = { "TargetLocation", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMovingPlatform, TargetLocation), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(Z_Construct_UClass_AMovingPlatform_Statics::NewProp_TargetLocation_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMovingPlatform_Statics::NewProp_TargetLocation_MetaData)) };
+#if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AMovingPlatform_Statics::NewProp_SpeedCentimetersPerSecond_MetaData[] = {
 		{ "Category", "MovingPlatform" },
 		{ "ModuleRelativePath", "Public/MovingPlatform.h" },
@@ -60,6 +73,7 @@ void EmptyLinkFunctionForGeneratedCodeMovingPlatform() {}
 #endif
 	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AMovingPlatform_Statics::NewProp_SpeedCentimetersPerSecond = { "SpeedCentimetersPerSecond", nullptr, (EPropertyFlags)0x0010000000000001, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AMovingPlatform, SpeedCentimetersPerSecond), METADATA_PARAMS(Z_Construct_UClass_AMovingPlatform_Statics::NewProp_SpeedCentimetersPerSecond_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AMovingPlatform_Statics::NewProp_SpeedCentimetersPerSecond_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMovingPlatform_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovingPlatform_Statics::NewProp_TargetLocation,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMovingPlatform_Statics::NewProp_SpeedCentimetersPerSecond,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_AMovingPlatform_Statics::StaticCppClassTypeInfo = {
@@ -89,7 +103,7 @@ void EmptyLinkFunctionForGeneratedCodeMovingPlatform() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AMovingPlatform, 2819137773);
+	IMPLEMENT_CLASS(AMovingPlatform, 3674823410);
 	template<> PUZZLEPLATFORMS_API UClass* StaticClass<AMovingPlatform>()
 	{
 		return AMovingPlatform::StaticClass();

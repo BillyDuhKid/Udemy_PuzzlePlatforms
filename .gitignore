@@ -73,7 +73,7 @@ Plugins/*/Intermediate/*
 # Cache files for the editor to use
 DerivedDataCache/*
 
-# Added by me 2020-10-29 Other Derived Files
+# Derived Files inside project path
 PuzzlePlatforms/.vs/*
 PuzzlePlatforms/Binaries/*
 PuzzlePlatforms/Build/*

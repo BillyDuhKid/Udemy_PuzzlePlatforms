@@ -1,0 +1,11 @@
+D:\Unreal Projects\Udemy_PuzzlePlatforms\PuzzlePlatforms\Intermediate\Build\Win64\UE4Editor\Development\PuzzlePlatforms\Definitions.PuzzlePlatforms.h
+D:\Unreal Projects\Udemy_PuzzlePlatforms\PuzzlePlatforms\Source\PuzzlePlatforms\Public\PlatformTrigger.h
+D:\Unreal Projects\Udemy_PuzzlePlatforms\PuzzlePlatforms\Source\PuzzlePlatforms\Public\MovingPlatform.h
+D:\Games\EpicGames\UE_4.25\Engine\Source\Runtime\Engine\Classes\Engine/StaticMeshActor.h
+D:\Games\EpicGames\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\StaticMeshActor.generated.h
+D:\Unreal Projects\Udemy_PuzzlePlatforms\PuzzlePlatforms\Intermediate\Build\Win64\UE4Editor\Inc\PuzzlePlatforms\MovingPlatform.generated.h
+D:\Games\EpicGames\UE_4.25\Engine\Source\Runtime\Engine\Classes\Components/BoxComponent.h
+D:\Games\EpicGames\UE_4.25\Engine\Source\Runtime\Engine\Classes\Components/ShapeComponent.h
+D:\Games\EpicGames\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\ShapeComponent.generated.h
+D:\Games\EpicGames\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\BoxComponent.generated.h
+D:\Unreal Projects\Udemy_PuzzlePlatforms\PuzzlePlatforms\Intermediate\Build\Win64\UE4Editor\Inc\PuzzlePlatforms\PlatformTrigger.generated.h

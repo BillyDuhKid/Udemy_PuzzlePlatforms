@@ -72,3 +72,11 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# Added by me 2020-10-29 Other Derived Files
+PuzzlePlatforms/.vs/*
+PuzzlePlatforms/Binaries/*
+PuzzlePlatforms/Build/*
+PuzzlePlatforms/DerivedDataCache/*
+PuzzlePlatforms/Intermediate/*
+PuzzlePlatforms/Saved/*

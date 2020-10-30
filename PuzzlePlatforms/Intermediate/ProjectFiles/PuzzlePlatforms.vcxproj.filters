@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\PuzzlePlatforms.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{B0A949E6-CC57-4A84-863C-BBDACDE4BE02}</UniqueIdentifier>
+      <UniqueIdentifier>{0B91293B-13D2-4999-8746-03DABEA958EB}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\PuzzlePlatforms.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{8449FE22-2295-4A1F-BF42-12F18C63A421}</UniqueIdentifier>
+      <UniqueIdentifier>{363F749B-826A-481A-84C2-635FE5BDB450}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -30,7 +30,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\PuzzlePlatforms">
-      <UniqueIdentifier>{1E4ADA40-8130-4253-B73F-C7B51E274933}</UniqueIdentifier>
+      <UniqueIdentifier>{548E9F7D-A963-41DF-9523-3ABA10BE16B9}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\PuzzlePlatforms\PuzzlePlatforms.Build.cs">
       <Filter>Source\PuzzlePlatforms</Filter>
@@ -54,7 +54,7 @@
       <Filter>Source\PuzzlePlatforms</Filter>
     </ClInclude>
     <Filter Include="Source\PuzzlePlatforms\Private">
-      <UniqueIdentifier>{65CD663A-21E5-4259-93BC-0D6A17F2E011}</UniqueIdentifier>
+      <UniqueIdentifier>{4768A7B6-07C6-4AC9-BA84-B6513ED80412}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\PuzzlePlatforms\Private\MovingPlatform.cpp">
       <Filter>Source\PuzzlePlatforms\Private</Filter>
@@ -66,7 +66,7 @@
       <Filter>Source\PuzzlePlatforms\Private</Filter>
     </ClCompile>
     <Filter Include="Source\PuzzlePlatforms\Public">
-      <UniqueIdentifier>{A8D2838F-BCDA-4E43-9D03-A7B583516A10}</UniqueIdentifier>
+      <UniqueIdentifier>{98326849-D73A-45DC-8BB6-3F150D961D7E}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\PuzzlePlatforms\Public\MovingPlatform.h">
       <Filter>Source\PuzzlePlatforms\Public</Filter>

@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\PuzzlePlatforms.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{0B91293B-13D2-4999-8746-03DABEA958EB}</UniqueIdentifier>
+      <UniqueIdentifier>{E8ED2962-68C1-4E90-B487-800ADABA89E3}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\PuzzlePlatforms.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{363F749B-826A-481A-84C2-635FE5BDB450}</UniqueIdentifier>
+      <UniqueIdentifier>{FFA1C37C-D335-4175-895F-6388A9C41BDF}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -30,7 +30,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\PuzzlePlatforms">
-      <UniqueIdentifier>{548E9F7D-A963-41DF-9523-3ABA10BE16B9}</UniqueIdentifier>
+      <UniqueIdentifier>{5662C0DA-1C19-46A9-953D-F40AA5A091E5}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\PuzzlePlatforms\PuzzlePlatforms.Build.cs">
       <Filter>Source\PuzzlePlatforms</Filter>
@@ -54,7 +54,7 @@
       <Filter>Source\PuzzlePlatforms</Filter>
     </ClInclude>
     <Filter Include="Source\PuzzlePlatforms\Private">
-      <UniqueIdentifier>{4768A7B6-07C6-4AC9-BA84-B6513ED80412}</UniqueIdentifier>
+      <UniqueIdentifier>{D03C5AC9-4E41-46E6-BC24-FD1302F742AE}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\PuzzlePlatforms\Private\MovingPlatform.cpp">
       <Filter>Source\PuzzlePlatforms\Private</Filter>
@@ -66,7 +66,7 @@
       <Filter>Source\PuzzlePlatforms\Private</Filter>
     </ClCompile>
     <Filter Include="Source\PuzzlePlatforms\Public">
-      <UniqueIdentifier>{98326849-D73A-45DC-8BB6-3F150D961D7E}</UniqueIdentifier>
+      <UniqueIdentifier>{28DBC2FC-3D66-4F0E-A73A-66B542A60CF1}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\PuzzlePlatforms\Public\MovingPlatform.h">
       <Filter>Source\PuzzlePlatforms\Public</Filter>
@@ -76,6 +76,21 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\PuzzlePlatforms\Public\PuzzlePlatformsGameInstance.h">
       <Filter>Source\PuzzlePlatforms\Public</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source\PuzzlePlatforms\MenuSystem">
+      <UniqueIdentifier>{395f0950-a182-4670-973e-e431437025a2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\PuzzlePlatforms\MenuSystem\MainMenu.cpp">
+      <Filter>Source\PuzzlePlatforms\MenuSystem</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\PuzzlePlatforms\MenuSystem\MainMenu.h">
+      <Filter>Source\PuzzlePlatforms\MenuSystem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

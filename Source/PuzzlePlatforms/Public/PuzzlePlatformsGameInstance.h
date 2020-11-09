@@ -5,13 +5,15 @@
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
 #include "Blueprint/UserWidget.h"
+#include "PuzzlePlatforms\MenuSystem\MenuInterface.h"
+#include <PuzzlePlatforms\MenuSystem\MainMenu.h>
 #include "PuzzlePlatformsGameInstance.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PUZZLEPLATFORMS_API UPuzzlePlatformsGameInstance : public UGameInstance
+class PUZZLEPLATFORMS_API UPuzzlePlatformsGameInstance : public UGameInstance, public IMenuInterface
 {
 	GENERATED_BODY()
 
@@ -31,4 +33,6 @@ public:
 
 private:
 	TSubclassOf<class UUserWidget> MenuClass;
+
+	class UMainMenu* Menu;
 };

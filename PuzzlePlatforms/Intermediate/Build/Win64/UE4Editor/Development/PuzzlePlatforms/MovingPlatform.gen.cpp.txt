@@ -1,7 +1,0 @@
-D:\Unreal Projects\Udemy_PuzzlePlatforms\PuzzlePlatforms\Intermediate\Build\Win64\UE4Editor\Development\PuzzlePlatforms\Definitions.PuzzlePlatforms.h
-D:\Games\EpicGames\UE_4.25\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
-D:\Games\EpicGames\UE_4.25\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h
-D:\Unreal Projects\Udemy_PuzzlePlatforms\PuzzlePlatforms\Source\PuzzlePlatforms/Public/MovingPlatform.h
-D:\Games\EpicGames\UE_4.25\Engine\Source\Runtime\Engine\Classes\Engine/StaticMeshActor.h
-D:\Games\EpicGames\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Inc\Engine\StaticMeshActor.generated.h
-D:\Unreal Projects\Udemy_PuzzlePlatforms\PuzzlePlatforms\Intermediate\Build\Win64\UE4Editor\Inc\PuzzlePlatforms\MovingPlatform.generated.h

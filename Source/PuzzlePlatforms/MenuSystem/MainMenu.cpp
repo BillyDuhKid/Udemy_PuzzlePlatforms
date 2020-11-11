@@ -8,8 +8,17 @@ bool UMainMenu::Initialize()
 
 	// TODO: setup
 
-	if (!ensure(ButtonHost != nullptr)) return false;
-	ButtonHost->OnClicked.AddDynamic(this, &UMainMenu::HostServer);
+	if (!ensure(HostButton != nullptr)) return false;
+	HostButton->OnClicked.AddDynamic(this, &UMainMenu::HostServer);
+
+	if (!ensure(JoinButton != nullptr)) return false;
+	JoinButton->OnClicked.AddDynamic(this, &UMainMenu::OpenJoinMenu);
+
+	if (!ensure(CancelJoinButton != nullptr)) return false;
+	CancelJoinButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
+
+	if (!ensure(JoinIPButton != nullptr)) return false;
+	JoinIPButton->OnClicked.AddDynamic(this, &UMainMenu::OpenJoinMenu);
 
 	return true;
 }
@@ -52,6 +61,23 @@ void UMainMenu::OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld)
 
 	Super::OnLevelRemovedFromWorld(InLevel, InWorld);
 }
+
+
+void UMainMenu::OpenMainMenu()
+{
+	if (!ensure(MenuSwitcher != nullptr)) return;
+	if (!ensure(MainMenu != nullptr)) return;
+	MenuSwitcher->SetActiveWidget(MainMenu);
+}
+
+
+void UMainMenu::OpenJoinMenu()
+{
+	if (!ensure(MenuSwitcher != nullptr)) return;
+	if (!ensure(JoinMenu != nullptr)) return;
+	MenuSwitcher->SetActiveWidget( JoinMenu );
+}
+
 
 void UMainMenu::HostServer()
 {

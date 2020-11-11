@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
+#include "Components/WidgetSwitcher.h"
 #include "MenuInterface.h"
 #include "MainMenu.generated.h"
 
@@ -27,13 +28,35 @@ protected:
 
 private:
 	UPROPERTY(meta = (BindWidget))
-	class UButton* ButtonHost;
+	class UWidgetSwitcher* MenuSwitcher;
 
 	UPROPERTY(meta = (BindWidget))
-	class UButton* ButtonJoin;
+	class UWidget* MainMenu;
+
+	UPROPERTY(meta = (BindWidget))
+	class UButton* HostButton;
+
+	UPROPERTY(meta = (BindWidget))
+	class UButton* JoinButton;
+
+
+	UPROPERTY(meta = (BindWidget))
+	class UWidget* JoinMenu;
+
+	UPROPERTY(meta = (BindWidget))
+	class UButton* CancelJoinButton;
+
+	UPROPERTY(meta = (BindWidget))
+	class UButton* JoinIPButton;
 
 	UFUNCTION()
 	void HostServer();
+
+	UFUNCTION()
+	void OpenMainMenu();
+
+	UFUNCTION()
+	void OpenJoinMenu();
 
 	IMenuInterface* MenuInterface;
 };

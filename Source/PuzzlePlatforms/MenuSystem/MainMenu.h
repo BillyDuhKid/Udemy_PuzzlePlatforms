@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
 #include "Components/WidgetSwitcher.h"
+#include "Components/EditableTextBox.h"
 #include "MenuInterface.h"
 #include "MainMenu.generated.h"
 
@@ -39,7 +40,6 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	class UButton* JoinButton;
 
-
 	UPROPERTY(meta = (BindWidget))
 	class UWidget* JoinMenu;
 
@@ -49,8 +49,14 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	class UButton* JoinIPButton;
 
+	UPROPERTY(meta = (BindWidget))
+	class UEditableTextBox* IPAddressField;
+
 	UFUNCTION()
 	void HostServer();
+
+	UFUNCTION()
+	void JoinServer();
 
 	UFUNCTION()
 	void OpenMainMenu();

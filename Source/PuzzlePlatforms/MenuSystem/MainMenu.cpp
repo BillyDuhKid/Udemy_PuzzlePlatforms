@@ -18,7 +18,7 @@ bool UMainMenu::Initialize()
 	CancelJoinButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
 
 	if (!ensure(JoinIPButton != nullptr)) return false;
-	JoinIPButton->OnClicked.AddDynamic(this, &UMainMenu::OpenJoinMenu);
+	JoinIPButton->OnClicked.AddDynamic(this, &UMainMenu::JoinServer);
 
 	return true;
 }
@@ -85,5 +85,16 @@ void UMainMenu::HostServer()
 	if (MenuInterface != nullptr)
 	{
 		MenuInterface->Host();
+	}
+}
+
+void UMainMenu::JoinServer()
+{
+	//UE_LOG(LogTemp, Warning, TEXT("Join IP Button Clicked"));
+	if (MenuInterface != nullptr)
+	{
+		if (!ensure(IPAddressField != nullptr)) return;
+		const FString Address = IPAddressField->GetText().ToString();
+		MenuInterface->Join(Address);
 	}
 }

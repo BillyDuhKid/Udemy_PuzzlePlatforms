@@ -24,3 +24,18 @@ void UMenuWidget::SetMenuInterface(IMenuInterface* MInterface)
 {
 	this->MenuInterface = MInterface;
 }
+
+void UMenuWidget::RemoveMenuInterface()
+{
+	this->RemoveFromViewport();
+
+	UWorld* World = GetWorld();
+	if (!ensure(World != nullptr)) return;
+
+	APlayerController* PlayerController = World->GetFirstPlayerController();
+	if (!ensure(PlayerController != nullptr)) return;
+
+	FInputModeGameOnly InputModeData;
+	PlayerController->SetInputMode(InputModeData);
+	PlayerController->bShowMouseCursor = false;
+}

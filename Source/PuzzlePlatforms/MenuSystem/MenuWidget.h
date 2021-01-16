@@ -17,8 +17,8 @@ class PUZZLEPLATFORMS_API UMenuWidget : public UUserWidget
 
 public:
 	void Setup();
-
 	void SetMenuInterface(IMenuInterface* MInterface);
+	void RemoveMenuInterface();
 
 protected:
 	IMenuInterface* MenuInterface;

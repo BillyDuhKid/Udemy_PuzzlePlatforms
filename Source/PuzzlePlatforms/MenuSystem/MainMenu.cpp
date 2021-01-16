@@ -14,6 +14,9 @@ bool UMainMenu::Initialize()
 	if (!ensure(JoinButton != nullptr)) return false;
 	JoinButton->OnClicked.AddDynamic(this, &UMainMenu::OpenJoinMenu);
 
+	if (!ensure(QuitGameButton != nullptr)) return false;
+	QuitGameButton->OnClicked.AddDynamic(this, &UMainMenu::QuitPressed);
+
 	if (!ensure(CancelJoinButton != nullptr)) return false;
 	CancelJoinButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
 
@@ -25,18 +28,7 @@ bool UMainMenu::Initialize()
 
 void UMainMenu::OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld)
 {
-	this->RemoveFromViewport();
-
-	UWorld* World = GetWorld();
-	if (!ensure(World != nullptr)) return;
-
-	APlayerController* PlayerController = World->GetFirstPlayerController();
-	if (!ensure(PlayerController != nullptr)) return;
-
-	FInputModeGameOnly InputModeData;
-	PlayerController->SetInputMode(InputModeData);
-	PlayerController->bShowMouseCursor = false;
-
+	RemoveMenuInterface();
 	Super::OnLevelRemovedFromWorld(InLevel, InWorld);
 }
 
@@ -54,6 +46,17 @@ void UMainMenu::OpenJoinMenu()
 	if (!ensure(MenuSwitcher != nullptr)) return;
 	if (!ensure(JoinMenu != nullptr)) return;
 	MenuSwitcher->SetActiveWidget( JoinMenu );
+}
+
+void UMainMenu::QuitPressed()
+{
+	UWorld* World = GetWorld();
+	if (!ensure(World != nullptr)) return;
+
+	APlayerController* PlayerController = World->GetFirstPlayerController();
+	if (!ensure(PlayerController != nullptr)) return;
+
+	PlayerController->ConsoleCommand("quit");
 }
 
 

@@ -5,7 +5,9 @@
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
 #include "Blueprint/UserWidget.h"
-#include "PuzzlePlatforms\MenuSystem\MenuInterface.h"
+#include <PuzzlePlatforms\MenuSystem\MenuInterface.h>
+#include <PuzzlePlatforms\MenuSystem\MenuWidget.h>
+#include <PuzzlePlatforms\MenuSystem\InGameMenu.h>
 #include <PuzzlePlatforms\MenuSystem\MainMenu.h>
 #include "PuzzlePlatformsGameInstance.generated.h"
 
@@ -25,6 +27,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void LoadMenu();
 
+	UFUNCTION(BlueprintCallable)
+	void InGameLoadMenu();
+
 	UFUNCTION(Exec)
 	void Host();
 
@@ -33,6 +38,8 @@ public:
 
 private:
 	TSubclassOf<class UUserWidget> MenuClass;
+	TSubclassOf<class UUserWidget> InGameMenuClass;
 
 	class UMainMenu* Menu;
+//	class UMainMenu* InGameMenu;
 };

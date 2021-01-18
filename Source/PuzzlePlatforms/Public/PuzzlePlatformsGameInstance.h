@@ -48,9 +48,11 @@ private:
 	class UMainMenu* Menu;
 
 	IOnlineSessionPtr SessionInterface;
+	TSharedPtr< class FOnlineSessionSearch> SessionSearch;
 
 	void OnCreateSessionComplete(FName SessionName, bool Success);
 	void OnDestroySessionCompleteDelegates(FName SessionName, bool Success);
+	void OnFindSessionCompleteDelegates(bool Success);
 
 	void CreateSession();
 };

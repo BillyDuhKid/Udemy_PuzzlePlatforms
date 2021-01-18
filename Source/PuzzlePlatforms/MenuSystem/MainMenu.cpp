@@ -1,6 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "MainMenu.h"
 
+UMainMenu::UMainMenu(const FObjectInitializer& ObjectInitializer)
+{
+	static ConstructorHelpers::FClassFinder<UUserWidget> ServerRowBPClass(TEXT("/Game/MenuSystem/WBP_ServerRow"));
+	if (!ensure(ServerRowBPClass.Class != nullptr)) return;
+	ServerRowClass = ServerRowBPClass.Class;
+}
+
 bool UMainMenu::Initialize()
 {
 	bool Success = Super::Initialize();
@@ -46,6 +53,10 @@ void UMainMenu::OpenJoinMenu()
 	if (!ensure(MenuSwitcher != nullptr)) return;
 	if (!ensure(JoinMenu != nullptr)) return;
 	MenuSwitcher->SetActiveWidget( JoinMenu );
+	if (MenuInterface != nullptr)
+	{
+		MenuInterface->RefreshServerList();
+	}
 }
 
 void UMainMenu::QuitPressed()
@@ -59,7 +70,6 @@ void UMainMenu::QuitPressed()
 	PlayerController->ConsoleCommand("quit");
 }
 
-
 void UMainMenu::HostServer()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Host Button Clicked"));
@@ -69,13 +79,32 @@ void UMainMenu::HostServer()
 	}
 }
 
+void UMainMenu::SetServerList(TArray<FString> ServerNames)
+{
+	if (!ensure(ServerRowClass != nullptr)) return;
+	UWorld* World = this->GetWorld();
+	if (!ensure(World != nullptr)) return;
+
+	ServerList->ClearChildren();
+
+	for (const FString& ServerName : ServerNames)
+	{
+		UServerRow* Row = CreateWidget<UServerRow>(World, ServerRowClass);
+		if (!ensure(Row != nullptr)) return;
+
+		Row->Servername->SetText(FText::FromString(ServerName));
+		ServerList->AddChild(Row);
+	}
+}
+
 void UMainMenu::JoinServer()
 {
 	//UE_LOG(LogTemp, Warning, TEXT("Join IP Button Clicked"));
 	if (MenuInterface != nullptr)
 	{
-		if (!ensure(IPAddressField != nullptr)) return;
-		const FString Address = IPAddressField->GetText().ToString();
-		MenuInterface->Join(Address);
+	//	if (!ensure(IPAddressField != nullptr)) return;
+	//	const FString Address = IPAddressField->GetText().ToString();
+		MenuInterface->Join("");
+
 	}
 }

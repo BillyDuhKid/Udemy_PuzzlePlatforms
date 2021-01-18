@@ -27,15 +27,6 @@ void UPuzzlePlatformsGameInstance::Init()
 			SessionInterface->OnCreateSessionCompleteDelegates.AddUObject(this, &UPuzzlePlatformsGameInstance::OnCreateSessionComplete);
 			SessionInterface->OnDestroySessionCompleteDelegates.AddUObject(this, &UPuzzlePlatformsGameInstance::OnDestroySessionCompleteDelegates);
 			SessionInterface->OnFindSessionsCompleteDelegates.AddUObject(this, &UPuzzlePlatformsGameInstance::OnFindSessionCompleteDelegates);
-
-			SessionSearch = MakeShareable(new FOnlineSessionSearch());
-			if (SessionSearch.IsValid())
-			{
-				SessionSearch->bIsLanQuery = true;
-				SessionInterface->FindSessions(0, SessionSearch.ToSharedRef());
-
-				UE_LOG(LogTemp, Warning, TEXT("Starting Find Session"));
-			}
 		}
 	}
 	//UE_LOG(LogTemp, Warning, TEXT("Found class %s"), *MenuClass->GetName());
@@ -64,6 +55,12 @@ void UPuzzlePlatformsGameInstance::InGameLoadMenu()
 
 void UPuzzlePlatformsGameInstance::Join(const FString& Address)
 {
+	if (Menu != nullptr)
+	{
+		Menu->SetServerList({"Test1", "Test2"});
+	}
+
+	/*
 	UEngine* Engine = GetEngine();
 	if (!ensure(Engine != nullptr)) return;
 	Engine->AddOnScreenDebugMessage(0, 5, FColor::Green, FString::Printf(TEXT("Joining %s"), *Address));
@@ -71,6 +68,7 @@ void UPuzzlePlatformsGameInstance::Join(const FString& Address)
 	APlayerController* PlayerController = GetFirstLocalPlayerController();
 	if (!ensure(PlayerController != nullptr)) return;
 	PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
+	*/
 }
 
 void UPuzzlePlatformsGameInstance::LoadMainMenu()
@@ -138,15 +136,31 @@ void UPuzzlePlatformsGameInstance::OnDestroySessionCompleteDelegates(FName Sessi
 	}
 }
 
+void UPuzzlePlatformsGameInstance::RefreshServerList()
+{
+	SessionSearch = MakeShareable(new FOnlineSessionSearch());
+	if (SessionSearch.IsValid())
+	{
+		SessionSearch->bIsLanQuery = true;
+		SessionInterface->FindSessions(0, SessionSearch.ToSharedRef());
+		UE_LOG(LogTemp, Warning, TEXT("Starting Find Session"));
+	}
+}
+
 void UPuzzlePlatformsGameInstance::OnFindSessionCompleteDelegates(bool Success)
 {
-	if (Success && SessionSearch.IsValid())
+	if (Success && SessionSearch.IsValid() && Menu != nullptr)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Finished Find Session"));
+
+		TArray<FString> ServerNames;
 
 		for (const FOnlineSessionSearchResult& SearchResult : SessionSearch->SearchResults)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Found session named: %s"), *SearchResult.GetSessionIdStr());
+			ServerNames.Add(SearchResult.GetSessionIdStr());
 		}
+
+		Menu->SetServerList(ServerNames);
 	}
 }

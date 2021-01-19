@@ -39,14 +39,12 @@ void UMainMenu::OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld)
 	Super::OnLevelRemovedFromWorld(InLevel, InWorld);
 }
 
-
 void UMainMenu::OpenMainMenu()
 {
 	if (!ensure(MenuSwitcher != nullptr)) return;
 	if (!ensure(MainMenu != nullptr)) return;
 	MenuSwitcher->SetActiveWidget(MainMenu);
 }
-
 
 void UMainMenu::OpenJoinMenu()
 {
@@ -87,24 +85,30 @@ void UMainMenu::SetServerList(TArray<FString> ServerNames)
 
 	ServerList->ClearChildren();
 
+	uint32 i = 0;
+
 	for (const FString& ServerName : ServerNames)
 	{
 		UServerRow* Row = CreateWidget<UServerRow>(World, ServerRowClass);
 		if (!ensure(Row != nullptr)) return;
 
 		Row->Servername->SetText(FText::FromString(ServerName));
+		Row->Setup(this, i);
+		i++;
 		ServerList->AddChild(Row);
 	}
 }
 
+void UMainMenu::SelectIndex(uint32 Index)
+{
+	SelectedIndex = Index;
+}
+
 void UMainMenu::JoinServer()
 {
-	//UE_LOG(LogTemp, Warning, TEXT("Join IP Button Clicked"));
-	if (MenuInterface != nullptr)
+	if (SelectedIndex.IsSet() && MenuInterface != nullptr)
 	{
-	//	if (!ensure(IPAddressField != nullptr)) return;
-	//	const FString Address = IPAddressField->GetText().ToString();
-		MenuInterface->Join("");
-
+		UE_LOG(LogTemp, Warning, TEXT("Selected index %d"), SelectedIndex.GetValue());
+		MenuInterface->Join(SelectedIndex.GetValue());
 	}
 }

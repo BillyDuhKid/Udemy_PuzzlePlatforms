@@ -27,9 +27,17 @@ void UPuzzlePlatformsGameInstance::Init()
 			SessionInterface->OnCreateSessionCompleteDelegates.AddUObject(this, &UPuzzlePlatformsGameInstance::OnCreateSessionComplete);
 			SessionInterface->OnDestroySessionCompleteDelegates.AddUObject(this, &UPuzzlePlatformsGameInstance::OnDestroySessionCompleteDelegates);
 			SessionInterface->OnFindSessionsCompleteDelegates.AddUObject(this, &UPuzzlePlatformsGameInstance::OnFindSessionCompleteDelegates);
+			SessionInterface->OnJoinSessionCompleteDelegates.AddUObject(this, &UPuzzlePlatformsGameInstance::OnJoinSessionComplete);
 		}
 	}
 	//UE_LOG(LogTemp, Warning, TEXT("Found class %s"), *MenuClass->GetName());
+}
+
+void UPuzzlePlatformsGameInstance::LoadMainMenu()
+{
+	APlayerController* PlayerController = GetFirstLocalPlayerController();
+	if (!ensure(PlayerController != nullptr)) return;
+	PlayerController->ClientTravel("/Game/MenuSystem/MainMenu", ETravelType::TRAVEL_Absolute);
 }
 
 void UPuzzlePlatformsGameInstance::LoadMenuWidget()
@@ -53,31 +61,7 @@ void UPuzzlePlatformsGameInstance::InGameLoadMenu()
 	InGameMenu->SetMenuInterface(this);
 }
 
-void UPuzzlePlatformsGameInstance::Join(const FString& Address)
-{
-	if (Menu != nullptr)
-	{
-		Menu->SetServerList({"Test1", "Test2"});
-	}
-
-	/*
-	UEngine* Engine = GetEngine();
-	if (!ensure(Engine != nullptr)) return;
-	Engine->AddOnScreenDebugMessage(0, 5, FColor::Green, FString::Printf(TEXT("Joining %s"), *Address));
-
-	APlayerController* PlayerController = GetFirstLocalPlayerController();
-	if (!ensure(PlayerController != nullptr)) return;
-	PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
-	*/
-}
-
-void UPuzzlePlatformsGameInstance::LoadMainMenu()
-{
-	APlayerController* PlayerController = GetFirstLocalPlayerController();
-	if (!ensure(PlayerController != nullptr)) return;
-	PlayerController->ClientTravel("/Game/MenuSystem/MainMenu", ETravelType::TRAVEL_Absolute);
-}
-
+//	---------------------------------------------------------------- HOST
 // button click from MenuInterface: virtual void Host() = 0;
 void UPuzzlePlatformsGameInstance::Host()
 {
@@ -127,15 +111,8 @@ void UPuzzlePlatformsGameInstance::OnCreateSessionComplete(FName SessionName, bo
 	World->ServerTravel("/Game/ThirdPersonCPP/Maps/ThirdPersonExampleMap?listen", true, false);
 }
 
-// Call back from: SessionInterface->OnDestroySessionCompleteDelegates.AddUObject(this, &UPuzzlePlatformsGameInstance::OnDestroySessionCompleteDelegates);
-void UPuzzlePlatformsGameInstance::OnDestroySessionCompleteDelegates(FName SessionName, bool Success)
-{
-	if (Success)
-	{
-		CreateSession();
-	}
-}
 
+//	---------------------------------------------------------------- JOIN
 void UPuzzlePlatformsGameInstance::RefreshServerList()
 {
 	SessionSearch = MakeShareable(new FOnlineSessionSearch());
@@ -162,5 +139,48 @@ void UPuzzlePlatformsGameInstance::OnFindSessionCompleteDelegates(bool Success)
 		}
 
 		Menu->SetServerList(ServerNames);
+	}
+}
+
+void UPuzzlePlatformsGameInstance::Join(uint32 Index)
+{
+	if (!SessionInterface.IsValid()) return;
+	if (!SessionSearch.IsValid()) return;
+
+	if (Menu != nullptr)
+	{
+		Menu->RemoveMenuInterface();
+	}
+
+	SessionInterface->JoinSession(0, SESSION_NAME, SessionSearch->SearchResults[Index]);	//TODO: this broken? Seems to only ever join one of the sessions at least on the same PC with multiple hosts
+}
+
+void UPuzzlePlatformsGameInstance::OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result)
+{
+	if (!SessionInterface.IsValid()) return;
+
+	FString Address;
+	if (!SessionInterface->GetResolvedConnectString(SessionName, Address))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Could not get connect string!"));
+		return;
+	}
+
+	UEngine* Engine = GetEngine();
+	if (!ensure(Engine != nullptr)) return;
+	Engine->AddOnScreenDebugMessage(0, 5, FColor::Green, FString::Printf(TEXT("Joining %s"), *Address));
+
+	APlayerController* PlayerController = GetFirstLocalPlayerController();
+	if (!ensure(PlayerController != nullptr)) return;
+	PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
+}
+
+
+// Call back from: SessionInterface->OnDestroySessionCompleteDelegates.AddUObject(this, &UPuzzlePlatformsGameInstance::OnDestroySessionCompleteDelegates);
+void UPuzzlePlatformsGameInstance::OnDestroySessionCompleteDelegates(FName SessionName, bool Success)
+{
+	if (Success)
+	{
+		CreateSession();
 	}
 }

@@ -27,6 +27,10 @@
 				"Win64",
 				"Linux"
 			]
+		},
+		{
+			"Name": "RawInput",
+			"Enabled": true
 		}
 	]
 }

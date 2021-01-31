@@ -101,12 +101,30 @@ void APuzzlePlatformsCharacter::TurnAtRate(float Rate)
 
 void APuzzlePlatformsCharacter::LookUpAtRate(float Rate)
 {
+	//UE_LOG(LogTemp, Warning, TEXT("LookUpAtRate: %f"), Rate);
+
 	// calculate delta for this frame from the rate information
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
+//Overrides for dead zone... note effect Mouse too, but eliminates drift
+void APuzzlePlatformsCharacter::AddControllerPitchInput(float Val)
+{
+	if (AnalogStickDeadzone && abs(Val) < AnalogStickDeadzone) return;
+
+	Super::AddControllerPitchInput(Val);
+}
+
+void APuzzlePlatformsCharacter::AddControllerYawInput(float Val)
+{
+	if (AnalogStickDeadzone && abs(Val) < AnalogStickDeadzone) return;
+
+	Super::AddControllerYawInput(Val);
+}
+
 void APuzzlePlatformsCharacter::MoveForward(float Value)
 {
+	if (AnalogStickDeadzone && abs(Value) < AnalogStickDeadzone) return;
 	//UE_LOG(LogTemp, Warning, TEXT("MoveForward: %f"), Value);
 
 	if ((Controller != NULL) && (Value != 0.0f))
@@ -123,6 +141,9 @@ void APuzzlePlatformsCharacter::MoveForward(float Value)
 
 void APuzzlePlatformsCharacter::MoveRight(float Value)
 {
+	if (AnalogStickDeadzone && abs(Value) < AnalogStickDeadzone) return;
+	//UE_LOG(LogTemp, Warning, TEXT("MoveRight: %f"), Value);
+
 	if ( (Controller != NULL) && (Value != 0.0f) )
 	{
 		// find out which way is right

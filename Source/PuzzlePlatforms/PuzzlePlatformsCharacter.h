@@ -30,6 +30,8 @@ public:
 	float BaseLookUpRate;
 
 protected:
+	/** Billy C added 2021-01-30 to clear up stick drift. Maybe this should be public above like BaseTurnRate and BaseLookUpRate */
+	float AnalogStickDeadzone = 0.1;
 
 	/** Resets HMD orientation in VR. */
 	void OnResetVR();
@@ -51,6 +53,10 @@ protected:
 	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
 	 */
 	void LookUpAtRate(float Rate);
+
+	/** Overrides for deadzone, note they alos effect mouse, but eliminate drift*/
+	void AddControllerPitchInput(float Val);
+	void AddControllerYawInput(float Val);
 
 	/** Handler for when a touch input begins. */
 	void TouchStarted(ETouchIndex::Type FingerIndex, FVector Location);

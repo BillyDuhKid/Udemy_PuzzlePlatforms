@@ -85,7 +85,15 @@ void UPuzzlePlatformsGameInstance::CreateSession()
 	{
 		FOnlineSessionSettings SessionSettings;
 
-		SessionSettings.bIsLANMatch = false;	//If LAN match set this to true and bUsePresence to false
+		if (IOnlineSubsystem::Get()->GetSubsystemName() == "NULL")
+		{
+			SessionSettings.bIsLANMatch = true;
+		}
+		else	// Currently Steam 2021-02-04
+		{
+			SessionSettings.bIsLANMatch = false;
+		}
+
 		SessionSettings.NumPublicConnections = 2;
 		SessionSettings.bShouldAdvertise = true;
 		SessionSettings.bUsesPresence = true;	//Steam option for non-dedicated servers
@@ -133,12 +141,17 @@ void UPuzzlePlatformsGameInstance::OnFindSessionCompleteDelegates(bool Success)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Finished Find Session"));
 
-		TArray<FString> ServerNames;
+		TArray<FServerData> ServerNames;
 
 		for (const FOnlineSessionSearchResult& SearchResult : SessionSearch->SearchResults)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Found session named: %s"), *SearchResult.GetSessionIdStr());
-			ServerNames.Add(SearchResult.GetSessionIdStr());
+			FServerData Data;
+			Data.Name = SearchResult.GetSessionIdStr();
+			Data.HostUserName = SearchResult.Session.OwningUserName;
+			Data.CurrentPlayers = SearchResult.Session.NumOpenPublicConnections;
+			Data.MaxPlayers = SearchResult.Session.SessionSettings.NumPrivateConnections;
+			ServerNames.Add(Data);
 		}
 
 		Menu->SetServerList(ServerNames);

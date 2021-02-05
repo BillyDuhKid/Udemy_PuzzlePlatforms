@@ -1,1 +1,0 @@
-"C:\Games\Unreal Engine\UE_4.26\Engine\Binaries\Win64\UE4Editor.exe" "C:\Games\Unreal Engine\Udemy_PuzzlePlatforms\PuzzlePlatforms.uproject" -game -ResX=1280 -ResY=720 -WINDOWED -log

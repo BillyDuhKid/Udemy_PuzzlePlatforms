@@ -2,6 +2,7 @@
 #include "PuzzlePlatformsGameInstance.h"
 
 const static FName SESSION_NAME = TEXT("My Session Game");
+const static FName SERVER_NAME_SETTINGS_KEY = TEXT("ServerName");
 
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitializer& ObjectInitializer)
 {
@@ -63,8 +64,10 @@ void UPuzzlePlatformsGameInstance::InGameLoadMenu()
 
 //	---------------------------------------------------------------- HOST
 // button click from MenuInterface: virtual void Host() = 0;
-void UPuzzlePlatformsGameInstance::Host()
+void UPuzzlePlatformsGameInstance::Host(FString ServerName)
 {
+	DesiredServerName = ServerName;
+
 	if (SessionInterface.IsValid())
 	{
 		auto ExistingSession = SessionInterface->GetNamedSession(SESSION_NAME);
@@ -97,7 +100,7 @@ void UPuzzlePlatformsGameInstance::CreateSession()
 		SessionSettings.NumPublicConnections = 2;
 		SessionSettings.bShouldAdvertise = true;
 		SessionSettings.bUsesPresence = true;	//Steam option for non-dedicated servers
-
+		SessionSettings.Set(SERVER_NAME_SETTINGS_KEY, DesiredServerName, EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
 		SessionInterface->CreateSession(0, SESSION_NAME, SessionSettings);
 	}
 }
@@ -139,7 +142,7 @@ void UPuzzlePlatformsGameInstance::OnFindSessionCompleteDelegates(bool Success)
 {
 	if (Success && SessionSearch.IsValid() && Menu != nullptr)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Finished Find Session"));
+		//UE_LOG(LogTemp, Warning, TEXT("Finished Find Session"));
 
 		TArray<FServerData> ServerNames;
 
@@ -147,7 +150,7 @@ void UPuzzlePlatformsGameInstance::OnFindSessionCompleteDelegates(bool Success)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Found session named: %s"), *SearchResult.GetSessionIdStr());
 			FServerData Data;
-			Data.Name = SearchResult.GetSessionIdStr();
+			SearchResult.Session.SessionSettings.Get(SERVER_NAME_SETTINGS_KEY, Data.Name);
 			Data.HostUserName = SearchResult.Session.OwningUserName;
 			Data.MaxPlayers = SearchResult.Session.NumOpenPublicConnections;
 			Data.CurrentPlayers = Data.MaxPlayers - SearchResult.Session.NumOpenPublicConnections;

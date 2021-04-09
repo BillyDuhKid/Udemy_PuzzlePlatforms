@@ -73,7 +73,7 @@ void UMainMenu::HostServer()
 	UE_LOG(LogTemp, Warning, TEXT("Host Button Clicked"));
 	if (MenuInterface != nullptr)
 	{
-		MenuInterface->Host();
+		MenuInterface->Host("Hello");
 	}
 }
 

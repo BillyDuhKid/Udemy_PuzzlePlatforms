@@ -4,6 +4,9 @@
 # Visual Studio 2015 database file
 *.VC.db
 
+# Rider for Unreal Engine specific files
+.idea/
+
 # Compiled Object files
 *.slo
 *.lo

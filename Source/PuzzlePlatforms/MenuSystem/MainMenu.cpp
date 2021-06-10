@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "MainMenu.h"
 
+#include "Components/EditableTextBox.h"
+
 UMainMenu::UMainMenu(const FObjectInitializer& ObjectInitializer)
 {
 	static ConstructorHelpers::FClassFinder<UUserWidget> ServerRowBPClass(TEXT("/Game/MenuSystem/WBP_ServerRow"));
@@ -10,20 +12,28 @@ UMainMenu::UMainMenu(const FObjectInitializer& ObjectInitializer)
 
 bool UMainMenu::Initialize()
 {
-	bool Success = Super::Initialize();
-	if (!Success) return false;
+	if (!Super::Initialize()) return false;
 
-	// TODO: setup
-
+/* Base Main Menu */
 	if (!ensure(HostButton != nullptr)) return false;
-	HostButton->OnClicked.AddDynamic(this, &UMainMenu::HostServer);
-
+	HostButton->OnClicked.AddDynamic(this, &UMainMenu::OpenHostMenu);
+	
 	if (!ensure(JoinButton != nullptr)) return false;
 	JoinButton->OnClicked.AddDynamic(this, &UMainMenu::OpenJoinMenu);
-
+	
 	if (!ensure(QuitGameButton != nullptr)) return false;
 	QuitGameButton->OnClicked.AddDynamic(this, &UMainMenu::QuitPressed);
+	
+/* Host Menu */
+	// text field
+	
+	if (!ensure(CancelHostMenuButton != nullptr)) return false;
+	CancelHostMenuButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
 
+	if (!ensure(ConfirmHostMenuButton != nullptr)) return false;
+	ConfirmHostMenuButton->OnClicked.AddDynamic(this, &UMainMenu::HostServer);
+
+	
 	if (!ensure(CancelJoinButton != nullptr)) return false;
 	CancelJoinButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
 
@@ -46,10 +56,19 @@ void UMainMenu::OpenMainMenu()
 	MenuSwitcher->SetActiveWidget(MainMenu);
 }
 
+void UMainMenu::OpenHostMenu()
+{
+	if (!ensure(MenuSwitcher != nullptr)) return;
+	if (!ensure(HostMenu != nullptr)) return;
+
+	MenuSwitcher->SetActiveWidget(HostMenu);
+}
+
 void UMainMenu::OpenJoinMenu()
 {
 	if (!ensure(MenuSwitcher != nullptr)) return;
 	if (!ensure(JoinMenu != nullptr)) return;
+
 	MenuSwitcher->SetActiveWidget( JoinMenu );
 	if (MenuInterface != nullptr)
 	{
@@ -73,7 +92,8 @@ void UMainMenu::HostServer()
 	UE_LOG(LogTemp, Warning, TEXT("Host Button Clicked"));
 	if (MenuInterface != nullptr)
 	{
-		MenuInterface->Host("Hello");
+		FString const ServerName = ServerHostName->Text.ToString();
+		MenuInterface->Host(ServerName);
 	}
 }
 

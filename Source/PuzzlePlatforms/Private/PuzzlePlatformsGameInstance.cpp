@@ -120,7 +120,7 @@ void UPuzzlePlatformsGameInstance::OnCreateSessionComplete(FName SessionName, co
 
 	UWorld* World = GetWorld();
 	if (!ensure(World != nullptr)) return;
-	World->ServerTravel("/Game/ThirdPersonCPP/Maps/ThirdPersonExampleMap?listen", true, false);
+	World->ServerTravel("/Game/PuzzlePlatforms/Maps/Lobby?listen", true, false);
 }
 
 

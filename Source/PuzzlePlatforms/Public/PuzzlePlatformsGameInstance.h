@@ -8,24 +8,19 @@
 #include "OnlineSessionSettings.h"
 #include "Interfaces/OnlineSessionInterface.h"
 #include "Blueprint/UserWidget.h"
-#include <PuzzlePlatforms\MenuSystem\MenuInterface.h>
-#include <PuzzlePlatforms\MenuSystem\MenuWidget.h>
-#include <PuzzlePlatforms\MenuSystem\InGameMenu.h>
-#include <PuzzlePlatforms\MenuSystem\MainMenu.h>
+#include <PuzzlePlatforms/MenuSystem/MenuInterface.h>
+#include <PuzzlePlatforms/MenuSystem/MainMenu.h>
 #include "PuzzlePlatformsGameInstance.generated.h"
 
-/**
- * 
- */
 UCLASS()
-class PUZZLEPLATFORMS_API UPuzzlePlatformsGameInstance : public UGameInstance, public IMenuInterface
+class PUZZLEPLATFORMS_API UPuzzlePlatformsGameInstance final : public UGameInstance, public IMenuInterface
 {
 	GENERATED_BODY()
 
 public:
-	UPuzzlePlatformsGameInstance(const FObjectInitializer& ObjectInitializer);
+	explicit  UPuzzlePlatformsGameInstance(const FObjectInitializer& ObjectInitializer);
 
-	virtual void Init();
+	virtual void Init() override;
 
 	UFUNCTION(BlueprintCallable)
 	void LoadMenuWidget();
@@ -34,14 +29,14 @@ public:
 	void InGameLoadMenu();
 
 	UFUNCTION(Exec)
-	void Host(FString ServerName) override;
+	virtual void Host(FString ServerName) override;
 
 	UFUNCTION(Exec)
-	void Join(uint32 Index) override;
+	virtual void Join(uint32 Index) override;
 
 	virtual void LoadMainMenu() override;
 
-	void RefreshServerList() override;
+	virtual void RefreshServerList() override;
 
 private:
 	TSubclassOf<class UUserWidget> MenuClass;

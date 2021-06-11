@@ -21,19 +21,16 @@ struct FServerData
 	FString HostUserName;
 };
 
-/**
- * 
- */
 UCLASS()
-class PUZZLEPLATFORMS_API UMainMenu : public UMenuWidget
+class PUZZLEPLATFORMS_API UMainMenu final : public UMenuWidget
 {
 	GENERATED_BODY()
 public:
-	UMainMenu(const FObjectInitializer& ObjectInitializer);
+	explicit UMainMenu(const FObjectInitializer& ObjectInitializer);
 
 	void SetServerList(TArray<FServerData> ServerNames);
 
-	void SelectIndex(uint32 Index);
+	void SelectIndex(const uint32 Index);
 
 protected:
 	virtual bool Initialize() override;
@@ -80,9 +77,6 @@ private:
 
 	UPROPERTY(meta = (BindWidget))
 	class UPanelWidget* ServerList;
-
-
-	
 	
 	UFUNCTION()
 	void HostServer();

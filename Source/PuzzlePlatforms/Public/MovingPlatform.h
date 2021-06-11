@@ -6,11 +6,8 @@
 #include "Engine/StaticMeshActor.h"
 #include "MovingPlatform.generated.h"
 
-/**
- * 
- */
 UCLASS()
-class PUZZLEPLATFORMS_API AMovingPlatform : public AStaticMeshActor
+class PUZZLEPLATFORMS_API AMovingPlatform final : public AStaticMeshActor
 {
 	GENERATED_BODY()
 

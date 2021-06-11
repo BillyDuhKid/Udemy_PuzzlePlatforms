@@ -12,7 +12,7 @@
  * 
  */
 UCLASS()
-class PUZZLEPLATFORMS_API UServerRow : public UUserWidget
+class PUZZLEPLATFORMS_API UServerRow final : public UUserWidget
 {
 	GENERATED_BODY()
 	

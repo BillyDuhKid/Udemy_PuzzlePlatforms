@@ -1,6 +1,4 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "MenuWidget.h"
 
 void UMenuWidget::Setup()
@@ -35,7 +33,7 @@ void UMenuWidget::RemoveMenuInterface()
 	APlayerController* PlayerController = World->GetFirstPlayerController();
 	if (!ensure(PlayerController != nullptr)) return;
 
-	FInputModeGameOnly InputModeData;
+	const FInputModeGameOnly InputModeData;
 	PlayerController->SetInputMode(InputModeData);
 	PlayerController->bShowMouseCursor = false;
 }

@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "MainMenu.h"
-
 #include "Components/EditableTextBox.h"
 
 UMainMenu::UMainMenu(const FObjectInitializer& ObjectInitializer)
@@ -12,9 +11,10 @@ UMainMenu::UMainMenu(const FObjectInitializer& ObjectInitializer)
 
 bool UMainMenu::Initialize()
 {
-	if (!Super::Initialize()) return false;
-
-/* Base Main Menu */
+	const bool Success = Super::Initialize();
+	if (!Success) return false;
+	
+/* Main Menu */
 	if (!ensure(HostButton != nullptr)) return false;
 	HostButton->OnClicked.AddDynamic(this, &UMainMenu::OpenHostMenu);
 	
@@ -25,15 +25,13 @@ bool UMainMenu::Initialize()
 	QuitGameButton->OnClicked.AddDynamic(this, &UMainMenu::QuitPressed);
 	
 /* Host Menu */
-	// text field
-	
 	if (!ensure(CancelHostMenuButton != nullptr)) return false;
 	CancelHostMenuButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
 
 	if (!ensure(ConfirmHostMenuButton != nullptr)) return false;
 	ConfirmHostMenuButton->OnClicked.AddDynamic(this, &UMainMenu::HostServer);
 
-	
+/* Join Menu */	
 	if (!ensure(CancelJoinButton != nullptr)) return false;
 	CancelJoinButton->OnClicked.AddDynamic(this, &UMainMenu::OpenMainMenu);
 
@@ -120,7 +118,7 @@ void UMainMenu::SetServerList(TArray<FServerData> ServerNames)
 	}
 }
 
-void UMainMenu::SelectIndex(uint32 Index)
+void UMainMenu::SelectIndex(const uint32 Index)
 {
 	SelectedIndex = Index;
 	UpdateChildren();

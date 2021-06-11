@@ -70,7 +70,7 @@ void UPuzzlePlatformsGameInstance::Host(FString ServerName)
 
 	if (SessionInterface.IsValid())
 	{
-		auto ExistingSession = SessionInterface->GetNamedSession(SESSION_NAME);
+		const auto ExistingSession = SessionInterface->GetNamedSession(SESSION_NAME);
 		if (ExistingSession != nullptr)
 		{
 			SessionInterface->DestroySession(SESSION_NAME);
@@ -106,7 +106,7 @@ void UPuzzlePlatformsGameInstance::CreateSession()
 }
 
 // Call back from: SessionInterface->OnCreateSessionCompleteDelegates.AddUObject(this, &UPuzzlePlatformsGameInstance::OnCreateSessionComplete);
-void UPuzzlePlatformsGameInstance::OnCreateSessionComplete(FName SessionName, bool Success)
+void UPuzzlePlatformsGameInstance::OnCreateSessionComplete(FName SessionName, const bool Success)
 {
 	if (!Success)
 	{
@@ -174,7 +174,7 @@ void UPuzzlePlatformsGameInstance::Join(uint32 Index)
 	SessionInterface->JoinSession(0, SESSION_NAME, SessionSearch->SearchResults[Index]);	//TODO: this broken? Seems to only ever join one of the sessions at least on the same PC with multiple hosts
 }
 
-void UPuzzlePlatformsGameInstance::OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result)
+void UPuzzlePlatformsGameInstance::OnJoinSessionComplete(const FName SessionName, EOnJoinSessionCompleteResult::Type Result)
 {
 	if (!SessionInterface.IsValid()) return;
 
@@ -196,7 +196,7 @@ void UPuzzlePlatformsGameInstance::OnJoinSessionComplete(FName SessionName, EOnJ
 
 
 // Call back from: SessionInterface->OnDestroySessionCompleteDelegates.AddUObject(this, &UPuzzlePlatformsGameInstance::OnDestroySessionCompleteDelegates);
-void UPuzzlePlatformsGameInstance::OnDestroySessionCompleteDelegates(FName SessionName, bool Success)
+void UPuzzlePlatformsGameInstance::OnDestroySessionCompleteDelegates(FName SessionName, const bool Success)
 {
 	if (Success)
 	{

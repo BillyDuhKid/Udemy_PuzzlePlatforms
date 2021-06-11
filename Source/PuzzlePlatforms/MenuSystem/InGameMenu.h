@@ -7,11 +7,8 @@
 #include "Components/Button.h"
 #include "InGameMenu.generated.h"
 
-/**
- * 
- */
 UCLASS()
-class PUZZLEPLATFORMS_API UInGameMenu : public UMenuWidget
+class PUZZLEPLATFORMS_API UInGameMenu final : public UMenuWidget
 {
 	GENERATED_BODY()
 protected:

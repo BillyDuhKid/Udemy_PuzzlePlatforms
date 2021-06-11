@@ -7,9 +7,6 @@
 #include "MenuInterface.h"
 #include "MenuWidget.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class PUZZLEPLATFORMS_API UMenuWidget : public UUserWidget
 {

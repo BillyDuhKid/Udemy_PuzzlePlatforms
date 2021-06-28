@@ -1,8 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "PuzzlePlatformsGameInstance.h"
 
-const static FName SESSION_NAME = TEXT("My Session Game");
-const static FName SERVER_NAME_SETTINGS_KEY = TEXT("ServerName");
+/**
+ * @brief Game Session name to fix num open connections
+ */
+const static FName GSession_Name = NAME_GameSession;	//Still bugged not properly showing NumOpenPublicConnections
+const static FName GServer_Name_Settings_Key = TEXT("ServerName");
 
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitializer& ObjectInitializer)
 {
@@ -32,6 +35,11 @@ void UPuzzlePlatformsGameInstance::Init()
 		}
 	}
 	//UE_LOG(LogTemp, Warning, TEXT("Found class %s"), *MenuClass->GetName());
+
+	if (GEngine != nullptr)
+	{
+		GEngine->OnNetworkFailure().AddUObject(this, &UPuzzlePlatformsGameInstance::OnNetworkFailure);
+	}
 }
 
 void UPuzzlePlatformsGameInstance::LoadMainMenu()
@@ -70,10 +78,10 @@ void UPuzzlePlatformsGameInstance::Host(FString ServerName)
 
 	if (SessionInterface.IsValid())
 	{
-		const auto ExistingSession = SessionInterface->GetNamedSession(SESSION_NAME);
+		const auto ExistingSession = SessionInterface->GetNamedSession(GSession_Name);
 		if (ExistingSession != nullptr)
 		{
-			SessionInterface->DestroySession(SESSION_NAME);
+			SessionInterface->DestroySession(GSession_Name);
 		}
 		else
 		{
@@ -100,8 +108,8 @@ void UPuzzlePlatformsGameInstance::CreateSession()
 		SessionSettings.NumPublicConnections = 2;
 		SessionSettings.bShouldAdvertise = true;
 		SessionSettings.bUsesPresence = true;	//Steam option for non-dedicated servers
-		SessionSettings.Set(SERVER_NAME_SETTINGS_KEY, DesiredServerName, EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
-		SessionInterface->CreateSession(0, SESSION_NAME, SessionSettings);
+		SessionSettings.Set(GServer_Name_Settings_Key, DesiredServerName, EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
+		SessionInterface->CreateSession(0, GSession_Name, SessionSettings);
 	}
 }
 
@@ -138,7 +146,7 @@ void UPuzzlePlatformsGameInstance::RefreshServerList()
 	}
 }
 
-void UPuzzlePlatformsGameInstance::OnFindSessionCompleteDelegates(bool Success)
+void UPuzzlePlatformsGameInstance::OnFindSessionCompleteDelegates(const bool Success)
 {
 	if (Success && SessionSearch.IsValid() && Menu != nullptr)
 	{
@@ -150,7 +158,7 @@ void UPuzzlePlatformsGameInstance::OnFindSessionCompleteDelegates(bool Success)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Found session named: %s"), *SearchResult.GetSessionIdStr());
 			FServerData Data;
-			SearchResult.Session.SessionSettings.Get(SERVER_NAME_SETTINGS_KEY, Data.Name);
+			SearchResult.Session.SessionSettings.Get(GServer_Name_Settings_Key, Data.Name);
 			Data.HostUserName = SearchResult.Session.OwningUserName;
 			Data.MaxPlayers = SearchResult.Session.NumOpenPublicConnections;
 			Data.CurrentPlayers = Data.MaxPlayers - SearchResult.Session.NumOpenPublicConnections;
@@ -161,7 +169,7 @@ void UPuzzlePlatformsGameInstance::OnFindSessionCompleteDelegates(bool Success)
 	}
 }
 
-void UPuzzlePlatformsGameInstance::Join(uint32 Index)
+void UPuzzlePlatformsGameInstance::Join(const uint32 Index)
 {
 	if (!SessionInterface.IsValid()) return;
 	if (!SessionSearch.IsValid()) return;
@@ -171,7 +179,15 @@ void UPuzzlePlatformsGameInstance::Join(uint32 Index)
 		Menu->RemoveMenuInterface();
 	}
 
-	SessionInterface->JoinSession(0, SESSION_NAME, SessionSearch->SearchResults[Index]);	//TODO: this broken? Seems to only ever join one of the sessions at least on the same PC with multiple hosts
+	SessionInterface->JoinSession(0, GSession_Name, SessionSearch->SearchResults[Index]);	//TODO: this broken? Seems to only ever join one of the sessions at least on the same PC with multiple hosts
+}
+
+void UPuzzlePlatformsGameInstance::StartSession() const
+{
+	if (SessionInterface.IsValid())
+	{
+		SessionInterface->StartSession(GSession_Name);
+	}
 }
 
 void UPuzzlePlatformsGameInstance::OnJoinSessionComplete(const FName SessionName, EOnJoinSessionCompleteResult::Type Result)
@@ -192,6 +208,11 @@ void UPuzzlePlatformsGameInstance::OnJoinSessionComplete(const FName SessionName
 	APlayerController* PlayerController = GetFirstLocalPlayerController();
 	if (!ensure(PlayerController != nullptr)) return;
 	PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
+}
+
+void UPuzzlePlatformsGameInstance::OnNetworkFailure(UWorld* World, UNetDriver* NetDriver, ENetworkFailure::Type FailureType, const FString& ErrorString)
+{
+	LoadMainMenu();
 }
 
 

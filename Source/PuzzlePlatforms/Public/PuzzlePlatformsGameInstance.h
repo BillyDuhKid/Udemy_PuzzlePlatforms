@@ -3,13 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine/GameInstance.h"
-#include "OnlineSubsystem.h"
-#include "OnlineSessionSettings.h"
-#include "Interfaces/OnlineSessionInterface.h"
-#include "Blueprint/UserWidget.h"
-#include <PuzzlePlatforms/MenuSystem/MenuInterface.h>
 #include <PuzzlePlatforms/MenuSystem/MainMenu.h>
+#include <PuzzlePlatforms/MenuSystem/MenuInterface.h>
+#include "OnlineSessionSettings.h"
+#include "OnlineSubsystem.h"
+#include "Blueprint/UserWidget.h"
+#include "Engine/GameInstance.h"
+#include "Interfaces/OnlineSessionInterface.h"
 #include "PuzzlePlatformsGameInstance.generated.h"
 
 UCLASS()
@@ -34,6 +34,8 @@ public:
 	UFUNCTION(Exec)
 	virtual void Join(uint32 Index) override;
 
+	void StartSession() const;
+	
 	virtual void LoadMainMenu() override;
 
 	virtual void RefreshServerList() override;
@@ -42,6 +44,9 @@ private:
 	TSubclassOf<class UUserWidget> MenuClass;
 	TSubclassOf<class UUserWidget> InGameMenuClass;
 
+	/**
+	 * @brief UMainMenu 
+	 */
 	class UMainMenu* Menu;
 
 	IOnlineSessionPtr SessionInterface;
@@ -51,6 +56,7 @@ private:
 	void OnDestroySessionCompleteDelegates(FName SessionName, bool Success);
 	void OnFindSessionCompleteDelegates(bool Success);
 	void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
+	void OnNetworkFailure(UWorld* World, UNetDriver* NetDriver, ENetworkFailure::Type FailureType, const FString& ErrorString);
 
 	FString DesiredServerName;
 	void CreateSession();

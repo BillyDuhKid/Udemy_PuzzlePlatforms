@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PuzzlePlatformsGameInstance.h"
 #include "PuzzlePlatformsGameMode.h"
 #include "LobbyGameMode.generated.h"
 
@@ -19,6 +20,9 @@ public:
 	virtual void Logout(AController* Exiting) override;
 	
 private:
-	uint32 NumberOfPlayers = 0;
+	void StartGame();
 	
+	uint32 NumberOfPlayers = 0;
+
+	FTimerHandle GameStartTimer;
 };
